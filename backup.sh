@@ -1,9 +1,9 @@
 #!/bin/bash
 # By Arthurmeade12. Last edited 2024/03/29
 set -eu
-WORLDS=('world' 'world_nether' 'terra' 'bskyblock_world')
+WORLDS=('season_2' 'season_2_nether' 'season_2_the_end')
 TARGET_DIR="${TARGET_DIR:="$(dirname "${0}")"}"
-BACKUP_THRESHOLD="${BACKUP_THRESHOLD:=9}"
+BACKUP_THRESHOLD="${BACKUP_THRESHOLD:=8}"
 
 print(){
   printf "\033[;1;34m%s\033[;0m\n" "${*}"
