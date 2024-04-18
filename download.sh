@@ -1,21 +1,22 @@
 #!/usr/bin/env bash
-set -eu
+set -u
 TARGET_DIR="${TARGET_DIR:="$(dirname "${0}")"}"
 CURL_ARGS='-JlOf#' # This variable is unquoted when expanded; word splitting will occur
+
+# TODO: Skoice
 
 ESSENTIALSX=(
   # Filename greps
   'EssentialsX-'
   'EssentialsXDiscord-'
-  'EssentialsXDiscordLink-'
+  #'EssentialsXDiscordLink-'
 )
 GEYSER=(
   # Geyser project names
   'geyser'
   'floodgate'
 )
-JENKINS=(
-  # ['Jenkins base urls']='filename string to grep'
+declare -A JENKINS=( # ['Jenkins base urls']='filename string to grep'
   ['jenkins.crazycrew.us/job/Pl3xMap-Mobs']='' # Pl3xmap-mobs
   ['jenkins.crazycrew.us/job/Pl3xMap-Banners']='' # Pl3xmap-banners
   ['jenkins.crazycrew.us/job/Pl3xMap-Signs']='' # Pl3xmap-signs
@@ -35,6 +36,7 @@ MODRINTH=(
   #'cc4eecf54bba5f47a55d9e6bc28329edbea90517' # BentoBox # Disabled for now - we're not using it and it's heavy
   'd7eec4b81240739ad6aec537ac42c772647b56de' # CoreProtect
   '2b308cbae2ffaa50be612b51d80bd91a7341b65c' # ViaBackwards
+  'bf503af2778cafe8621d5e3ba67ded95ca034058' # Maintenance
   '4112b0e304b5eeb9f36537119aac46f3f7fa44c1' # multiverse-signportals
   'd5cf3fca6d78e4c91128bf3c0418136f011a0017' # multiverse-core
   '83823933559b4bb8b2fde670f12220432b96d04a' # Terra
@@ -49,6 +51,7 @@ MODRINTH=(
 #shellcheck disable=SC2034 # TODO
 HANGAR=(
   #'fe09acd84d030f0e2e9e7440e0df5a9202f2e899' # harderdespawn
+  #'4d6ba088d1017b5e2850adb9e0e3ab1203db5dc6' # Grim
 )
 
 PAYLOAD='{
@@ -64,7 +67,7 @@ PAYLOAD='{
 }
 '
 # 1.20.2 is max required by Coreprotect
-# 1.20.1 is max version of EssentialsX
+# 1.20.1 is max version of EssentialsX & Maintenance
 # Paper needed by more plugins than not (even though we run purpur)
 
 if ! cd "${TARGET_DIR}"
@@ -107,16 +110,10 @@ done
 
 for JENKIN in "${!JENKINS[@]}"
 do
-  echo 'hello?'
   FILE="$(curl -s "https://${JENKIN}/lastSuccessfulBuild/api/json" | \
     jq -r '.artifacts[].relativePath' | grep "${JENKINS["${JENKIN}"]}")"
   curl ${CURL_ARGS} "https://${JENKIN}/lastSuccessfulBuild/artifact/${FILE}"
 done
-
-LUCKPERMS_JENKIN='ci.lucko.me/job/LuckPerms'
-LUCKPERMS_FILE="$(curl -s "https://${LUCKPERMS_JENKIN}/lastSuccessfulBuild/api/json" | \
-  jq -r '.artifacts[].relativePath' | grep 'bukkit/')"
-curl ${CURL_ARGS} "https://ci.lucko.me/job/LuckPerms/lastSuccessfulBuild/artifact/${LUCKPERMS_FILE}"
 
 # Curseforge # TODO
 for PROJECT in "${!CURSEFORGE[@]}"
@@ -126,10 +123,9 @@ do
     'x-api-key: $2a$10$tPDlhGZIyk1w9xo7TEYP9uBLy083QUsL/7EwufoKHG/wZcvdfCn3e' \
     "https://api.curseforge.com/v1/mods/${PROJECT}/files?gameVersion=${CURSEFORGE["${PROJECT}"]}" | \
     jq -r '.data[].downloadUrl' | head -n 1 )"
-  echo "\$URL: ${URL}"
   curl ${CURL_ARGS} "${URL/'edge.'/'mediafilez.'}"
 done
 
-#TODO: Hangar
+#TODO: Hangar (Where are the api docs?)
 
 
