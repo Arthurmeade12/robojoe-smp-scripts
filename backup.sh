@@ -1,5 +1,5 @@
 #!/bin/bash
-# By Arthurmeade12. Last edited 2024/03/29
+# By Arthurmeade12. Last edited 2024/04/19
 set -eu
 WORLDS=('season_2' 'season_2_nether' 'season_2_the_end')
 TARGET_DIR="${TARGET_DIR:="$(dirname "${0}")"}"
