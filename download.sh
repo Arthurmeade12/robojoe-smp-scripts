@@ -12,7 +12,6 @@ ESSENTIALSX=(
   # Filename greps
   'EssentialsX-'
   'EssentialsXDiscord-'
-  #'EssentialsXDiscordLink-'
 )
 GEYSER=(
   # Geyser project names
