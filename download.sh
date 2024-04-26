@@ -6,7 +6,6 @@ CURL_ARGS='-JlOf#' # This variable is unquoted when expanded; word splitting wil
 # Spigot:
 # - Skoice
 # - GravestonesPlus
-# - GrimAC
 
 
 ESSENTIALSX=(
