@@ -40,7 +40,6 @@ MODRINTH=(
   'd7eec4b81240739ad6aec537ac42c772647b56de' # CoreProtect
   '2b308cbae2ffaa50be612b51d80bd91a7341b65c' # ViaBackwards
   'bf503af2778cafe8621d5e3ba67ded95ca034058' # Maintenance
-  '4112b0e304b5eeb9f36537119aac46f3f7fa44c1' # multiverse-signportals
   'd5cf3fca6d78e4c91128bf3c0418136f011a0017' # multiverse-core
   '83823933559b4bb8b2fde670f12220432b96d04a' # Terra
   'e351dd6f09eda6703575776a2232d759352cd7b6' # multiverse-portals
