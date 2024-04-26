@@ -30,7 +30,6 @@ declare -A JENKINS=( # ['Jenkins base urls']='filename string to grep'
 declare -A CURSEFORGE=(
   # [Project ID]='wanted version'
   [31055]=1.20.2 # Craftbook
-  [322882]=1.20.4 # Deadchest
   #[33184]=1.16 # Vault # Causing problems. Rarely updates anyway
 )
 MODRINTH=(
