@@ -3,7 +3,10 @@ set -u
 TARGET_DIR="${TARGET_DIR:="$(dirname "${0}")"}"
 CURL_ARGS='-JlOf#' # This variable is unquoted when expanded; word splitting will occur
 
-# TODO: Skoice
+# Spigot:
+# - Skoice
+# GravestonesPlus
+
 
 ESSENTIALSX=(
   # Filename greps
