@@ -6,6 +6,7 @@ CURL_ARGS='-JlOf#' # This variable is unquoted when expanded; word splitting wil
 # Spigot:
 # - Skoice
 # - GravestonesPlus
+# - MyWorlds
 
 ESSENTIALSX=(
   # Filename greps
@@ -29,8 +30,10 @@ declare -A JENKINS=( # ['Jenkins base urls']='filename string to grep'
 MODRINTH=(
   '9857f67f2fd1640bc4913a7e1781dfa8e167035c' # BKCommonLib
   'd7eec4b81240739ad6aec537ac42c772647b56de' # CoreProtect
+  '7d59c830c5ea7683e0619f0524318e8ec1ef59c7' # Craftbook
+  'fea27f4ca32dd777ba82992d2c0cdfb8598f07b7' # Mclo.gs
   '2b308cbae2ffaa50be612b51d80bd91a7341b65c' # ViaBackwards
-  'bf503af2778cafe8621d5e3ba67ded95ca034058' # Maintenance
+  #'bf503af2778cafe8621d5e3ba67ded95ca034058' # Maintenance # Author kennytv has not put the latest version on modrinth
   #'83823933559b4bb8b2fde670f12220432b96d04a' # Terra
   '29b2bf30efaab24aac0c3f147fbe9d13fb63436d' # Chunky
   '2e5e2baa7ac26b53d334d25771b87716adae4e8c' # Pl3xMap
@@ -49,13 +52,12 @@ PAYLOAD='{
   ],
   "game_versions": [
     "1.20.1",
-    "1.20.2",
-    "1.20.4"
+    "1.20.4",
+    "1.20.6"
   ]
 }
 '
-# 1.20.2 is max required by Coreprotect
-# 1.20.1 is max version of EssentialsX & Maintenance
+# 1.20.1 is max version of EssentialsX (stable), Maintenance, and mclo.gs
 # Paper needed by more plugins than not (even though we run purpur)
 
 if ! cd "${TARGET_DIR}"
