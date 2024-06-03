@@ -27,12 +27,6 @@ declare -A JENKINS=( # ['Jenkins base urls']='filename string to grep'
   ['ci.dmulloy2.net/job/ProtocolLib']='' # Protocollib
   ['ci.lucko.me/job/LuckPerms']='bukkit/' # Luckperms
 )
-declare -A CURSEFORGE=(
-  # [Project ID]='wanted version'
-  [31055]=1.20.2 # Craftbook
-  [322882]=1.20.4 # Deadchest
-  #[33184]=1.16 # Vault # Causing problems. Rarely updates anyway
-)
 MODRINTH=(
   # 'sha1 of any file from the wanted project'
   #'cc4eecf54bba5f47a55d9e6bc28329edbea90517' # BentoBox # Disabled for now - we're not using it and it's heavy
@@ -114,17 +108,6 @@ do
   FILE="$(curl -s "https://${JENKIN}/lastSuccessfulBuild/api/json" | \
     jq -r '.artifacts[].relativePath' | grep "${JENKINS["${JENKIN}"]}")"
   curl ${CURL_ARGS} "https://${JENKIN}/lastSuccessfulBuild/artifact/${FILE}"
-done
-
-# Curseforge # TODO
-for PROJECT in "${!CURSEFORGE[@]}"
-do
-  #shellcheck disable=SC2016 # It's not a var. It's an api key
-  URL="$(curl --silent -H 'Accept: application/json' -H \
-    'x-api-key: $2a$10$tPDlhGZIyk1w9xo7TEYP9uBLy083QUsL/7EwufoKHG/wZcvdfCn3e' \
-    "https://api.curseforge.com/v1/mods/${PROJECT}/files?gameVersion=${CURSEFORGE["${PROJECT}"]}" | \
-    jq -r '.data[].downloadUrl' | head -n 1 )"
-  curl ${CURL_ARGS} "${URL/'edge.'/'mediafilez.'}"
 done
 
 #TODO: Hangar (Where are the api docs?)
