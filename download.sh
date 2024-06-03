@@ -7,7 +7,6 @@ CURL_ARGS='-JlOf#' # This variable is unquoted when expanded; word splitting wil
 # - Skoice
 # - GravestonesPlus
 
-
 ESSENTIALSX=(
   # Filename greps
   'EssentialsX-'
@@ -28,18 +27,12 @@ declare -A JENKINS=( # ['Jenkins base urls']='filename string to grep'
   ['ci.lucko.me/job/LuckPerms']='bukkit/' # Luckperms
 )
 MODRINTH=(
-  # 'sha1 of any file from the wanted project'
-  #'cc4eecf54bba5f47a55d9e6bc28329edbea90517' # BentoBox # Disabled for now - we're not using it and it's heavy
+  '9857f67f2fd1640bc4913a7e1781dfa8e167035c' # BKCommonLib
   'd7eec4b81240739ad6aec537ac42c772647b56de' # CoreProtect
   '2b308cbae2ffaa50be612b51d80bd91a7341b65c' # ViaBackwards
   'bf503af2778cafe8621d5e3ba67ded95ca034058' # Maintenance
-  'd5cf3fca6d78e4c91128bf3c0418136f011a0017' # multiverse-core
-  '83823933559b4bb8b2fde670f12220432b96d04a' # Terra
-  'e351dd6f09eda6703575776a2232d759352cd7b6' # multiverse-portals
+  #'83823933559b4bb8b2fde670f12220432b96d04a' # Terra
   '29b2bf30efaab24aac0c3f147fbe9d13fb63436d' # Chunky
-  '741ebb4815dfc51147e70048356bb93be7896399' # multiverse-inventories
-  '4dd02f707307efa7db50de6cea707c1c0a5b6eeb' # multiverse-netherportals
-  'cf627fe7f646d228d7d6ee47acf34f4567f7a8c4' # worldedit
   '2e5e2baa7ac26b53d334d25771b87716adae4e8c' # Pl3xMap
   '13ae61a3a4beb3e7d00f6f7763136f336f58ff6d' # ViaVersion
 )
