@@ -3,11 +3,17 @@ set -u
 TARGET_DIR="${TARGET_DIR:="$(dirname "${0}")"}"
 CURL_ARGS='-JlOf#' # This variable is unquoted when expanded; word splitting will occur
 
-# Spigot:
-# - Skoice
-# - GravestonesPlus
-# - MyWorlds
-
+SPIGOT=(
+  'Skoice'
+  'GravestonesPlus'
+  'MyWorlds'
+)
+BROKEN=(
+  'HarderRespawn'
+  'GrimAC'
+  'Terra'
+  'Vault'
+)
 GEYSER=(
   # Geyser project names
   'geyser'
@@ -59,10 +65,9 @@ then
 fi
 
 # Purpur
-
 curl ${CURL_ARGS} 'https://api.purpurmc.org/v2/purpur/1.20.6/latest/download'
 
-# Normal modrinth project loop
+# Modrinth
 for PROJECT in "${MODRINTH[@]}"
 do
   curl -sX POST "https://api.modrinth.com/v2/version_file/${PROJECT}/update" -H "Content-Type: application/json" --data-binary "${PAYLOAD}" | \
@@ -79,12 +84,15 @@ do
     jq -r .downloads.spigot.name)" "${APIURL}"/downloads/spigot
 done
 
+# Jenkins
 for JENKIN in "${!JENKINS[@]}"
 do
   FILE="$(curl -s "https://${JENKIN}/lastSuccessfulBuild/api/json" | \
     jq -r '.artifacts[].relativePath' | grep "${JENKINS["${JENKIN}"]}")"
   curl ${CURL_ARGS} "https://${JENKIN}/lastSuccessfulBuild/artifact/${FILE}"
 done
+
+echo "Plugins to update manually: ${SPIGOT[*]} ${BROKEN[*]}"
 
 #TODO: Hangar (Where are the api docs?)
 
