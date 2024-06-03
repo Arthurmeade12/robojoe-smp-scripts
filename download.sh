@@ -19,11 +19,6 @@ GEYSER=(
   'floodgate'
 )
 declare -A JENKINS=( # ['Jenkins base urls']='filename string to grep'
-  ['jenkins.crazycrew.us/job/Pl3xMap-Mobs']='' # Pl3xmap-mobs
-  ['jenkins.crazycrew.us/job/Pl3xMap-Banners']='' # Pl3xmap-banners
-  ['jenkins.crazycrew.us/job/Pl3xMap-Signs']='' # Pl3xmap-signs
-  ['jenkins.crazycrew.us/job/Pl3xMap-Warps']='' # Pl3xmap-warps
-  ['jenkins.crazycrew.us/job/Pl3xMap-Claims']='' # Pl3xmap-Claims
   ['ci.dmulloy2.net/job/ProtocolLib']='' # Protocollib
   ['ci.lucko.me/job/LuckPerms']='bukkit/' # Luckperms
 )
