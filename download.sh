@@ -8,11 +8,6 @@ CURL_ARGS='-JlOf#' # This variable is unquoted when expanded; word splitting wil
 # - GravestonesPlus
 # - MyWorlds
 
-ESSENTIALSX=(
-  # Filename greps
-  'EssentialsX-'
-  'EssentialsXDiscord-'
-)
 GEYSER=(
   # Geyser project names
   'geyser'
@@ -21,11 +16,13 @@ GEYSER=(
 declare -A JENKINS=( # ['Jenkins base urls']='filename string to grep'
   ['ci.dmulloy2.net/job/ProtocolLib']='' # Protocollib
   ['ci.lucko.me/job/LuckPerms']='bukkit/' # Luckperms
+  ['ci.ender.zone/job/EssentialsX']='jars/EssentialsX-' # EssentialsX
+  ['ci.ender.zone/job/EssentialsX']='jars/EssentialsXDiscord-' # EssentialsXDiscord
 )
 MODRINTH=(
   '9857f67f2fd1640bc4913a7e1781dfa8e167035c' # BKCommonLib
-  'd7eec4b81240739ad6aec537ac42c772647b56de' # CoreProtect
   '29b2bf30efaab24aac0c3f147fbe9d13fb63436d' # Chunky
+  'd7eec4b81240739ad6aec537ac42c772647b56de' # CoreProtect
   '7d59c830c5ea7683e0619f0524318e8ec1ef59c7' # Craftbook
   #'bf503af2778cafe8621d5e3ba67ded95ca034058' # Maintenance # Author kennytv has not put the latest version on modrinth
   'fea27f4ca32dd777ba82992d2c0cdfb8598f07b7' # Mclo.gs
@@ -63,7 +60,7 @@ fi
 
 # Purpur
 
-curl ${CURL_ARGS} 'https://api.purpurmc.org/v2/purpur/1.20.4/latest/download'
+curl ${CURL_ARGS} 'https://api.purpurmc.org/v2/purpur/1.20.6/latest/download'
 
 # Normal modrinth project loop
 for PROJECT in "${MODRINTH[@]}"
@@ -73,17 +70,6 @@ do
     xargs curl ${CURL_ARGS}
 done
 
-# EssentialsX
-OLDIFS="${IFS}" # To reset later
-IFS=$'\n' # Makes sure the loop distinguishes between each file ONLY with newlines
-RESPONSE="$(curl -sX POST "https://api.modrinth.com/v2/version_file/e626f9f250470bcf2feffbc3740f738f9cee50ef/update" -H "Content-Type: application/json" --data-binary "${PAYLOAD}" | \
-    jq -r '.files[].url')"
-for ((ESSX_INT=0; ESSX_INT < "${#ESSENTIALSX[@]}"; ESSX_INT++))
-do
-  #shellcheck disable=SC2086 # We want word splitting on ${RESPONSE}.
-  curl ${CURL_ARGS} "$(grep "${ESSENTIALSX["${ESSX_INT}"]}" <<< ${RESPONSE} )"
-done
-IFS="${OLDIFS}"
 
 # Geyser and floodgate
 for PROJECT in "${GEYSER[@]}"
