@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -ux
+set -u
 TARGET_DIR="${TARGET_DIR:="$(dirname "${0}")"}"
 CURL_ARGS='-JlOf#' # This variable is unquoted when expanded; word splitting will occur
 
