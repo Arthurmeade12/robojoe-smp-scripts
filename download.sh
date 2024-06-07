@@ -33,15 +33,9 @@ MODRINTH=(
   '02bf45c4d531b6c644515091ef0d5e4b751f2852' # GriefPreventions
   #'bf503af2778cafe8621d5e3ba67ded95ca034058' # Maintenance # Author kennytv has not put the latest version on modrinth
   'fea27f4ca32dd777ba82992d2c0cdfb8598f07b7' # Mclo.gs
-  '2e5e2baa7ac26b53d334d25771b87716adae4e8c' # Pl3xMap
   #'83823933559b4bb8b2fde670f12220432b96d04a' # Terra # Has not updated to 1.20.6 and is heavily version dependent
   '2b308cbae2ffaa50be612b51d80bd91a7341b65c' # ViaBackwards
   '13ae61a3a4beb3e7d00f6f7763136f336f58ff6d' # ViaVersion
-)
-#shellcheck disable=SC2034 # TODO
-HANGAR=(
-  #'fe09acd84d030f0e2e9e7440e0df5a9202f2e899' # harderdespawn
-  #'4d6ba088d1017b5e2850adb9e0e3ab1203db5dc6' # Grim
 )
 
 PAYLOAD='{
