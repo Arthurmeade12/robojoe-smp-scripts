@@ -20,10 +20,10 @@ declare -A JENKINS=( # ['Jenkins base urls']='filename string to grep'
   ['ci.dmulloy2.net/job/ProtocolLib']='' # Protocollib Dev
   ['ci.lucko.me/job/LuckPerms']='bukkit/' # Luckperms
   ['ci.ender.zone/job/EssentialsX']='jars/EssentialsX-' # EssentialsX Dev
-  ['ci.mg-dev.eu/job/BKCommonLib']='' # BKCommonLib Dev
+  #['ci.mg-dev.eu/job/BKCommonLib']='' # BKCommonLib Dev
 )
 MODRINTH=(
-  # '9857f67f2fd1640bc4913a7e1781dfa8e167035c' # BKCommonLib Stable
+  '9857f67f2fd1640bc4913a7e1781dfa8e167035c' # BKCommonLib Stable
   '29b2bf30efaab24aac0c3f147fbe9d13fb63436d' # Chunky
   '33b6c2b5dad6f5b99235d4883d4ac1a3d200c3d4' # ChunkyBorder
   'd7eec4b81240739ad6aec537ac42c772647b56de' # CoreProtect
@@ -46,7 +46,8 @@ PAYLOAD='{
   "game_versions": [
     "1.20.1",
     "1.20.4",
-    "1.20.6"
+    "1.20.6",
+    "1.21"
   ]
 }
 '
