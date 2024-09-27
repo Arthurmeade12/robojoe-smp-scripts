@@ -7,14 +7,12 @@ CURL_ARGS='-JlOf#' # This variable is unquoted when expanded; word splitting wil
 declare -A UNAVAILABLE=(
   # Spigot
   ['GraveStonesPlus']='https://www.spigotmc.org/resources/gravestonesplus.95132/updates'
-  ['GrimAC']='https://www.spigotmc.org/resources/grim-anticheat.99923/updates'
   ['HarderDespawn']='https://hangar.papermc.io/Kyle/harderdespawn/versions' # Hangar ONLY
   ['Vault']='https://dev.bukkit.org/projects/vault/files'
   ['mcxboxbroadcast']='https://github.com/MCXboxBroadcast/Broadcaster/releases'
 )
 SPIGET=(
   '95132' # GraveStonesPlus
-  '99923' # Grim Anticheat
   #'39594' # MyWorlds Stable
   '34315' # Vault
   #'1997' # Protocollib Stable
@@ -41,6 +39,7 @@ MODRINTH=(
   'f55005317a18ec583a64821cf310b91d8f475c15' # DiscordSRV
   'd2cd2591ea5af93a17f41d25068a6fb3247ac4c6' # DriveBackupV2
   '02bf45c4d531b6c644515091ef0d5e4b751f2852' # GriefPrevention
+  'c27189490370a002e54ab399ad998309432e3514' # GrimAC
   'bf503af2778cafe8621d5e3ba67ded95ca034058' # Maintenance # Author kennytv has not put the latest version on modrinth
   'fea27f4ca32dd777ba82992d2c0cdfb8598f07b7' # Mclo.gs
   #'83823933559b4bb8b2fde670f12220432b96d04a' # Terra # Has not updated to 1.20.6 and is heavily version dependent
