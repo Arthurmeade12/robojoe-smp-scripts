@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
 set -u
-TARGET_DIR="${TARGET_DIR:="$(dirname "${0}")"}"
+WHEREAMI="$(dirname "${0}")"
+TARGET_DIR="${TARGET_DIR:="${WHEREAMI}"}"
 CURL_ARGS='-JlOf#' # This variable is unquoted when expanded; word splitting will occur
 
-HANGAR=(
-  'HarderDespawn' # Hangar ONLY
+declare -A UNAVAILABLE=(
+  # Spigot
+  ['GraveStonesPlus']='https://www.spigotmc.org/resources/gravestonesplus.95132/updates'
+  ['GrimAC']='https://www.spigotmc.org/resources/grim-anticheat.99923/updates'
+  ['HarderDespawn']='https://hangar.papermc.io/Kyle/harderdespawn/versions' # Hangar ONLY
+  ['Vault']='https://dev.bukkit.org/projects/vault/files'
+  ['mcxboxbroadcast']='https://github.com/MCXboxBroadcast/Broadcaster/releases'
 )
 SPIGET=(
-  '95132' # GravestonesPlus
+  '95132' # GraveStonesPlus
   '99923' # Grim Anticheat
   #'39594' # MyWorlds Stable
   '34315' # Vault
@@ -24,6 +30,7 @@ declare -A JENKINS=( # ['Jenkins base urls']='filename string to grep'
   ['ci.lucko.me/job/LuckPerms']='bukkit/' # Luckperms
   ['ci.ender.zone/job/EssentialsX']='jars/EssentialsX-' # EssentialsX Dev
   ['ci.mg-dev.eu/job/BKCommonLib']='' # BKCommonLib Dev
+  ['ci.mg-dev.eu/job/MyWorlds']='' # MyWorlds Dev
 )
 MODRINTH=(
   #'9857f67f2fd1640bc4913a7e1781dfa8e167035c' # BKCommonLib Stable
@@ -47,14 +54,15 @@ PAYLOAD='{
     "purpur"
   ],
   "game_versions": [
-    "1.20.1",
-    "1.20.4",
+    "1.20",
     "1.20.6",
-    "1.21"
+    "1.21",
+    "1.21.1"
   ]
 }
 '
-# 1.20.1 is max version of EssentialsX (stable), Maintenance, and mclo.gs
+# 1.20 for mclo.gs
+# 1.20.1 is max version of EssentialsX (stable)
 # Paper needed by more plugins than not (even though we run purpur)
 
 if ! cd "${TARGET_DIR}"
@@ -62,9 +70,12 @@ then
   printf "\033[;1;31m%s%s%s\033[;0m" 'The target directory ' "${TARGET_DIR}" ' does not exist Aborting '
   exit 1
 fi
+[[ ! -d "${TARGET_DIR}/plugins" ]] && mkdir -p "${WHEREAMI}/plugins"
 
 # Purpur
-curl ${CURL_ARGS} 'https://api.purpurmc.org/v2/purpur/1.21/latest/download'
+curl ${CURL_ARGS} 'https://api.purpurmc.org/v2/purpur/1.21.1/latest/download'
+
+pushd ./plugins
 
 # Modrinth
 for PROJECT in "${MODRINTH[@]}"
@@ -91,8 +102,20 @@ do
   curl ${CURL_ARGS} "https://${JENKIN}/lastSuccessfulBuild/artifact/${FILE}"
 done
 
-echo "Plugins to update manually: ${HANGAR[*]}"
+popd
 
-#TODO: Hangar (Where are the api docs?)
+echo "Plugins to update manually: ${!UNAVAILABLE[@]}"
+echo -n "Automatically open their URLs ? (y/n) : "
+read -n 1 ANSWER
+if [[ "${ANSWER}" = 'y' ]] || [[ "${ANSWER}" = 'Y' ]]
+then
+  for X in "${!UNAVAILABLE[@]}"
+  do
+    xdg-open "${UNAVAILABLE["${X}"]}"
+  done
+fi
+printf '%s\n' "Date of last run: $(cat "${WHEREAMI}/.timestamp")"
+date > "${WHEREAMI}/.timestamp"
+
 
 
