@@ -8,15 +8,16 @@ declare -A UNAVAILABLE=(
   # Spigot
   ['GraveStonesPlus']='https://www.spigotmc.org/resources/gravestonesplus.95132/updates'
   ['HarderDespawn']='https://hangar.papermc.io/Kyle/harderdespawn/versions' # Hangar ONLY
+  ['MyWorlds']='https://www.spigotmc.org/resources/myworlds.39594/updates'
   ['Vault']='https://dev.bukkit.org/projects/vault/files'
   ['mcxboxbroadcast']='https://github.com/MCXboxBroadcast/Broadcaster/releases'
 )
-SPIGET=(
-  '95132' # GraveStonesPlus
-  #'39594' # MyWorlds Stable
-  '34315' # Vault
-  #'1997' # Protocollib Stable
-)
+#SPIGET=(
+#  '95132' # GraveStonesPlus
+#  '39594' # MyWorlds Stable
+#  '34315' # Vault
+#  #'1997' # Protocollib Stable
+#)
 
 GEYSER=(
   # Geyser project names
@@ -27,11 +28,11 @@ declare -A JENKINS=( # ['Jenkins base urls']='filename string to grep'
   ['ci.dmulloy2.net/job/ProtocolLib']='' # Protocollib Dev
   ['ci.lucko.me/job/LuckPerms']='bukkit/' # Luckperms
   ['ci.ender.zone/job/EssentialsX']='jars/EssentialsX-' # EssentialsX Dev
-  ['ci.mg-dev.eu/job/BKCommonLib']='' # BKCommonLib Dev
-  ['ci.mg-dev.eu/job/MyWorlds']='' # MyWorlds Dev
+  #['ci.mg-dev.eu/job/BKCommonLib']='' # BKCommonLib Dev
+  #['ci.mg-dev.eu/job/MyWorlds']='' # MyWorlds Dev
 )
 MODRINTH=(
-  #'9857f67f2fd1640bc4913a7e1781dfa8e167035c' # BKCommonLib Stable
+  '7c018de6db70bcb81cf0312b4e6a158d983c9422' # BKCommonLib Stable
   '29b2bf30efaab24aac0c3f147fbe9d13fb63436d' # Chunky
   '33b6c2b5dad6f5b99235d4883d4ac1a3d200c3d4' # ChunkyBorder
   'd7eec4b81240739ad6aec537ac42c772647b56de' # CoreProtect
@@ -103,7 +104,7 @@ done
 
 popd
 
-echo "Plugins to update manually: ${!UNAVAILABLE[@]}"
+echo "Plugins to update manually: ${!UNAVAILABLE[*]}"
 echo -n "Automatically open their URLs ? (y/n) : "
 read -n 1 ANSWER
 if [[ "${ANSWER}" = 'y' ]] || [[ "${ANSWER}" = 'Y' ]]
