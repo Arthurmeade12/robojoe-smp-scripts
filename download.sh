@@ -38,7 +38,7 @@ declare -A MODRINTH=(
 )
 
 msg(){
-  printf '\033[;1;32m ==> \033[0;m\033[;1m%s : ' "${*}"
+  printf '\033[;1;32m ==> \033[0;m\033[;1m%s : \033[:0m' "${*}"
 }
 
 PAYLOAD='{
