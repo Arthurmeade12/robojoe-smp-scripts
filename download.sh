@@ -37,6 +37,10 @@ declare -A MODRINTH=(
   ['ViaVersion']='13ae61a3a4beb3e7d00f6f7763136f336f58ff6d' #
 )
 
+msg(){
+  printf '\033[;1;32m ==> \033[0;m\033[;1m%s : ' "${*}"
+}
+
 PAYLOAD='{
   "loaders": [
     "paper",
@@ -71,22 +75,24 @@ curl ${CURL_ARGS} 'https://api.purpurmc.org/v2/purpur/1.21.1/latest/download'
 pushd ./plugins
 
 # Modrinth
-for PROJECT in "${MODRINTH[@]}"
+for PROJECT in "${!MODRINTH[@]}"
 do
-  curl -sX POST "https://api.modrinth.com/v2/version_file/${PROJECT}/update" -H "Content-Type: application/json" --data-binary "${PAYLOAD}" | \
+  msg "${PROJECT}"
+  curl -sX POST "https://api.modrinth.com/v2/version_file/${MODRINTH["${PROJECT}"]}}/update" -H "Content-Type: application/json" --data-binary "${PAYLOAD}" | \
     jq -r '.files[].url' | \
     xargs curl ${CURL_ARGS}
 done
 
-
 # Floodgate
 APIURL="https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest"
+msg 'Floodgate'
 curl -#L -o "$(curl --silent -L "https://download.geysermc.org/v2/projects/${PROJECT}/versions/latest/builds/latest" |\
 jq -r .downloads.spigot.name)" "${APIURL}"/downloads/spigot
 
 # Jenkins
 for JENKIN in "${!JENKINS[@]}"
 do
+  msg "${JENKIN}"
   FILE="$(curl -s "https://${JENKIN}/lastSuccessfulBuild/api/json" | \
     jq -r '.artifacts[].relativePath' | grep "${JENKINS["${JENKIN}"]}")"
   curl ${CURL_ARGS} "https://${JENKIN}/lastSuccessfulBuild/artifact/${FILE}"
