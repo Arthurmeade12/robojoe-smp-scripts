@@ -8,10 +8,11 @@ CURL_ARGS='-JlOf# --clobber'
 declare -A UNAVAILABLE=(
   # Spigot
   ['GraveStonesPlus']='https://www.spigotmc.org/resources/gravestonesplus.95132/updates'
-  ['MyWorlds']='https://www.spigotmc.org/resources/myworlds.39594/updates'
-  ['Vault']='https://dev.bukkit.org/projects/vault/files'
   ['mcxboxbroadcast']='https://github.com/MCXboxBroadcast/Broadcaster/releases'
+  ['MyWorlds']='https://www.spigotmc.org/resources/myworlds.39594/updates'
   ['ProtocolLib']='https://www.spigotmc.org/resources/protocollib.1997/updates'
+  ['Vault']='https://dev.bukkit.org/projects/vault/files'
+  ['VaultChatFormatter']='https://www.spigotmc.org/resources/vaultchatformatter.49016/'
 )
 
 declare -A JENKINS=( # ['Jenkins base urls']='filename string to grep'
@@ -31,11 +32,12 @@ declare -A MODRINTH=(
   ['Grim Anticheat']='c27189490370a002e54ab399ad998309432e3514' # 10/20/24
   ['Maintenance']='ba93789d9bbbc1dd8d58333ff6e6b7ac1f015b9f' # 10/20/24
   ['mclo.gs']='fea27f4ca32dd777ba82992d2c0cdfb8598f07b7' # 10/20/24
-  ['Pl3xMap']='da39a3ee5e6b4b0d3255bfef95601890afd80709' #
+  ['Pl3xMap']='da39a3ee5e6b4b0d3255bfef95601890afd80709' # Not working?
   ['Simple Voice Chat']='3745b56d2a8c15d98db68a449969d3690cfdb308' # 10/20/24
   ['Simple Voice Chat Discord Bridge']='33560ae663380366ab2d353118d6d39e58ec56d3' # 10/20/24
   ['ViaBackwards']='95af4be3c13aad778834dd2ed5e7447ea8f78485' # 10/20/24
   ['ViaVersion']='6680f915fc242bfc1fc847f54cd1056c74ec1b2d' # 10/20/24
+  ['Worldedit']='75ac9e214a3dd8ebd53b7cb1e6f27d9a4d0479f0' # 10/22/24
 )
 
 msg(){
@@ -58,7 +60,7 @@ PAYLOAD='{
 # 1.20 for mclo.gs
 # 1.20.6 for CoreProtect
 # 1.21 for Craftbook, Simple Voice Chat Discord Bridge
-# Paper for Chunky, Chunky Border, Geyser, GriefPrevention (maybe? inconsistent), Grim Anticheat, Maintenance, ViaBackwards, ViaVersion
+# Paper for Chunky, Chunky Border, Geyser, GriefPrevention (maybe? inconsistent), Grim Anticheat, Maintenance, ViaBackwards, ViaVersion, Worldedit
 
 ### Code:
 
