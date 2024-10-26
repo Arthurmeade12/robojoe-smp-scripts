@@ -5,6 +5,17 @@ TARGET_DIR="${TARGET_DIR:="${WHEREAMI}"}"
 #shellcheck disable=SC2086 # Word splitting intended for CURL_ARGS
 CURL_ARGS='-JlOf# --clobber'
 
+msg(){
+  printf '\033[;1;32m ==> \033[0;m\033[;1m%s : \033[:0m\n' "${*}"
+}
+
+# Fail on macOS bash (3.2) which doesn't support associative arrays
+if [[ "${BASH_VERSINFO}" -le 3 ]]
+then
+  msg "\033[31;mPlease install a newer version of bash to run this script"
+  exit 2
+fi
+
 declare -A UNAVAILABLE=(
   # Spigot
   ['GraveStonesPlus']='https://www.spigotmc.org/resources/gravestonesplus.95132/updates'
@@ -39,10 +50,6 @@ declare -A MODRINTH=(
   ['ViaVersion']='6680f915fc242bfc1fc847f54cd1056c74ec1b2d' # 10/20/24
   ['Worldedit']='75ac9e214a3dd8ebd53b7cb1e6f27d9a4d0479f0' # 10/22/24
 )
-
-msg(){
-  printf '\033[;1;32m ==> \033[0;m\033[;1m%s : \033[:0m\n' "${*}"
-}
 
 PAYLOAD='{
   "loaders": [
