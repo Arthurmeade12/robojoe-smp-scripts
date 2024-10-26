@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -u
+#set -u
 WHEREAMI="$(dirname "${0}")"
 TARGET_DIR="${TARGET_DIR:="${WHEREAMI}"}"
 #shellcheck disable=SC2086 # Word splitting intended for CURL_ARGS
@@ -114,9 +114,13 @@ echo -n 'Automatically open their URLs ? (y/n) : '
 read -n 1 ANSWER
 if [[ "${ANSWER}" = 'y' ]] || [[ "${ANSWER}" = 'Y' ]]
 then
+  case "$(uname)" in
+    'Darwin') OPEN='open' ;;
+    *) OPEN='xdg-open' ;;
+  esac
   for LINK in "${!UNAVAILABLE[@]}"
   do
-    xdg-open "${UNAVAILABLE["${LINK}"]}"
+    "${OPEN}" "${UNAVAILABLE["${LINK}"]}"
   done
 fi
 printf '\n%s\n' "Date of last run: $(cat "${WHEREAMI}/.timestamp")"
