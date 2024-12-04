@@ -20,13 +20,14 @@ declare -A UNAVAILABLE=(
   # Spigot
   ['GraveStonesPlus']='https://www.spigotmc.org/resources/gravestonesplus.95132/updates'
   ['mcxboxbroadcast']='https://github.com/MCXboxBroadcast/Broadcaster/releases'
-  ['MyWorlds']='https://www.spigotmc.org/resources/myworlds.39594/updates'
-  ['ProtocolLib']='https://www.spigotmc.org/resources/protocollib.1997/updates'
+  #['MyWorlds']='https://www.spigotmc.org/resources/myworlds.39594/updates'
   ['Vault']='https://dev.bukkit.org/projects/vault/files'
   ['VaultChatFormatter']='https://www.spigotmc.org/resources/vaultchatformatter.49016/'
 )
 
 declare -A JENKINS=( # ['Jenkins base urls']='filename string to grep'
+  ['ci.mg-dev.eu/job/BKCommonLib']='' # BKCommonLib Dev
+  ['ci.mg-dev.eu/job/MyWorlds']='' # MyWorlds Dev
   ['ci.lucko.me/job/LuckPerms']='bukkit/' # Luckperms
   ['ci.ender.zone/job/EssentialsX']='jars/EssentialsX-' # EssentialsX Dev
 )
