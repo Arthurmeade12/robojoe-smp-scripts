@@ -60,7 +60,10 @@ PAYLOAD='{
     "1.20",
     "1.20.6",
     "1.21",
-    "1.21.1"
+    "1.21.1",
+    "1.21.2",
+    "1.21.3",
+    "1.21.4"
   ]
 }
 '
@@ -81,7 +84,7 @@ fi
 # Purpur
 msg 'Purpur'
 #shellcheck disable=SC2086 # Word splitting intended for CURL_ARGS
-curl ${CURL_ARGS} 'https://api.purpurmc.org/v2/purpur/1.21.1/latest/download'
+curl ${CURL_ARGS} 'https://api.purpurmc.org/v2/purpur/1.21.3/latest/download'
 
 # Plugin folder check
 [[ ! -d "${TARGET_DIR}/plugins" ]] && mkdir -p "${WHEREAMI}/plugins"
