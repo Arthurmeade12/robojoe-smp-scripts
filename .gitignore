@@ -1,3 +1,4 @@
 **/*.jar
 **/*.timestamp
+.DS_Store
 **/.DS_Store
