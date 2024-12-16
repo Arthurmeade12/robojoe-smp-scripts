@@ -32,7 +32,7 @@ declare -A JENKINS=( # ['Jenkins base urls']='filename string to grep'
   ['ci.ender.zone/job/EssentialsX']='jars/EssentialsX-' # EssentialsX Dev
 )
 declare -A MODRINTH=(
-  ['BKCommonLib (Stable)']='7c018de6db70bcb81cf0312b4e6a158d983c9422' # 10/20/24
+  #['BKCommonLib (Stable)']='7c018de6db70bcb81cf0312b4e6a158d983c9422' # 10/20/24
   ['Chunky']='b9366f80cf0045cbb791ba7e11e00f608b98d012' # 10/20/24
   ['Chunky Border']='33b6c2b5dad6f5b99235d4883d4ac1a3d200c3d4' # 10/20/24
   ['CoreProtect']='0613b4537bfaed09ca3ef93883abbb9f10c390f1' # 10/20/24
@@ -85,7 +85,7 @@ fi
 # Purpur
 msg 'Purpur'
 #shellcheck disable=SC2086 # Word splitting intended for CURL_ARGS
-curl ${CURL_ARGS} 'https://api.purpurmc.org/v2/purpur/1.21.3/latest/download'
+curl ${CURL_ARGS} 'https://api.purpurmc.org/v2/purpur/1.21.4/latest/download'
 
 # Plugin folder check
 [[ ! -d "${TARGET_DIR}/plugins" ]] && mkdir -p "${WHEREAMI}/plugins"
@@ -136,3 +136,4 @@ then
 fi
 printf '\n%s\n' "Date of last run: $(cat "${WHEREAMI}/.timestamp")"
 date > "${WHEREAMI}/.timestamp"
+
