@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#set -u
+set -u
 WHEREAMI="$(dirname "${0}")"
 TARGET_DIR="${TARGET_DIR:="${WHEREAMI}"}"
 #shellcheck disable=SC2086 # Word splitting intended for CURL_ARGS
