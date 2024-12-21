@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -u
+set -ux
 WHEREAMI="$(dirname "${0}")"
 TARGET_DIR="${TARGET_DIR:="${WHEREAMI}"}"
 #shellcheck disable=SC2086 # Word splitting intended for CURL_ARGS
@@ -18,7 +18,7 @@ fi
 
 declare -A UNAVAILABLE=(
   # Spigot
-  ['GraveStonesPlus']='https://www.spigotmc.org/resources/gravestonesplus.95132/updates'
+  #['GraveStonesPlus']='https://www.spigotmc.org/resources/gravestonesplus.95132/updates'
   ['mcxboxbroadcast']='https://github.com/MCXboxBroadcast/Broadcaster/releases'
   #['MyWorlds']='https://www.spigotmc.org/resources/myworlds.39594/updates'
   ['Vault']='https://dev.bukkit.org/projects/vault/files'
@@ -30,6 +30,7 @@ declare -A JENKINS=( # ['Jenkins base urls']='filename string to grep'
   ['ci.mg-dev.eu/job/MyWorlds']='' # MyWorlds Dev
   ['ci.lucko.me/job/LuckPerms']='bukkit/' # Luckperms
   ['ci.ender.zone/job/EssentialsX']='jars/EssentialsX-' # EssentialsX Dev
+  ['bencodez.com/job/GraveStonesPlus']='' # GraveStonesPlus
 )
 declare -A MODRINTH=(
   #['BKCommonLib (Stable)']='7c018de6db70bcb81cf0312b4e6a158d983c9422' # 10/20/24
@@ -52,7 +53,8 @@ declare -A MODRINTH=(
   ['Worldedit']='75ac9e214a3dd8ebd53b7cb1e6f27d9a4d0479f0' # 10/22/24
 )
 
-PAYLOAD='{
+mrapi(){
+  local PAYLOAD='{
   "loaders": [
     "paper",
     "purpur"
@@ -62,16 +64,19 @@ PAYLOAD='{
     "1.20.6",
     "1.21",
     "1.21.1",
-    "1.21.2",
     "1.21.3",
     "1.21.4"
   ]
 }
 '
+  curl -sX "${1}" "https://api.modrinth.com/v2/${2}" -H 'Content-Type: application/json' --data-binary "${PAYLOAD}"
+}
+
 # 1.20 for mclo.gs
 # 1.20.6 for CoreProtect
-# 1.21 for Craftbook, Simple Voice Chat Discord Bridge
-# Paper for Chunky, Chunky Border, Geyser, GriefPrevention (maybe? inconsistent), Grim Anticheat, Maintenance, ViaBackwards, ViaVersion, Worldedit
+# 1.21.1 for DriveBackupV2, GriefPrevention
+# 1.21.3 for Simple Voice Chat Discord Bridge, WorldEdit
+# Paper for Chunky, Chunky Border, Geyser, GriefPrevention (maybe? inconsistent), Maintenance, ViaBackwards, ViaVersion, Worldedit
 
 ### Code:
 
