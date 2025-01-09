@@ -54,7 +54,7 @@ modrinth_exec(){
   local -i i
   for ((i = 0 ; i < "${#MODRINTH_NAMES[@]}" ; i++))
   do
-    FILE="$(find . -name ${MODRINTH_WILDCARDS["${i}"]} -maxdepth 1)"
+    FILE="$(find . -maxdepth 1 -name ${MODRINTH_WILDCARDS["${i}"]})"
     if [[ -f "${FILE}"  ]]
     then
       HASH="$(sha512sum < "${FILE}" | hash_fix)"
