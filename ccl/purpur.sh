@@ -7,7 +7,7 @@
 
 PURPUR_API_URL='https://api.purpurmc.org/v2/'
 
-PURPUR_DIR="${TARGET_DIR}"
+PURPUR_DIR='.'
 
 PURPUR_NAMES=(
   'Purpur'

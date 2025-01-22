@@ -24,7 +24,8 @@ optional_source_check(){
 }
 
 source_check(){
-  local BASE FULL_VAR NUM VARIABLE
+  set +u # We're dealing with that here
+  local ARRAY_LENGTH BASE FULL_VAR NUM VARIABLE
   BASE="$(hash_fix <<< "${1}")" # `hash_fix` cuts of last 3 chars, which is a coincidence but is useful here.
   NUM='' # Needs to be reset for every source
   for VARIABLE in $(eval echo "\${${BASE^^}_DEFINITION[@]}") # `printf` only prints first arg, whereas `echo` prints them all
@@ -32,19 +33,23 @@ source_check(){
     FULL_VAR="${BASE^^}_${VARIABLE#@}"
     if [[ "${VARIABLE:0:1}" == '@' ]]
     then
-      [[ "${!FULL_VAR}" ]] || \
-        bad_source "${1}"
-    else
-      ARRAY_LENGTH="$(eval printf "\${#${FULL_VAR}[@]}")"
-      if [[ "${NUM}" ]]
+      if [[ -z "${FULL_VAR}" ]]
       then
-        [[ "${ARRAY_LENGTH}" == "${NUM}" ]] || \
-          bad_source "${1}"
+        bad_source "${1}"
+        return 1
+      fi
+    else
+      ARRAY_LENGTH="$(eval printf "\${#${FULL_VAR}[@]}")" 2>/dev/null
+      if [[ "${NUM}" ]] && [[ "${ARRAY_LENGTH}" != "${NUM}" ]]
+      then
+        bad_source "${1}"
+	return 1
       else
         NUM="${ARRAY_LENGTH}"
       fi
     fi
   done
+  set -u
 }
 
 target_dir_check(){
@@ -55,7 +60,6 @@ target_dir_check(){
     chmod -R '+rw' "${TARGET_DIR}" || \
       error_out '2' 'The target directory ' "${TARGET_DIR}" 'either cannot be created or cannot be made readable and writable (rw). '
   fi
-  [[ ! -d "${TARGET_DIR}/update" ]] && mkdir -p "${TARGET_DIR}/update"
 }
 
 timestamp_check(){

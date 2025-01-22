@@ -4,29 +4,19 @@
 ### IMPORTANT : Order of JENKINS arrays must be parallel
 ### Alphabetical by JENKINS_NAMES
 ### DO NOT EDIT ABOVE THIS LINE
-
-JENKINS_DIR="${TARGET_DIR}/plugins"
+JENKINS_DIR='plugins'
 
 JENKINS_NAMES=(
-  'BKCommonLib Dev'
   'EssentialsX Dev'
-  'GravestonesPlus Dev'
   'Luckperms'
-  'MyWorlds Dev'
 )
 
 JENKINS_PATHS=(
-  ''
   'jars/EssentialsX-'
-  ''
   'bukkit/'
-  ''
 )
 
 JENKINS_URLS=(
-  'ci.mg-dev.eu/job/BKCommonLib'
   'ci.ender.zone/job/EssentialsX'
-  'bencodez.com/job/GraveStonesPlus'
   'ci.lucko.me/job/LuckPerms'
-  'ci.mg-dev.eu/job/MyWorlds'
 )

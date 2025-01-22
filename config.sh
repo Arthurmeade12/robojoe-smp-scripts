@@ -13,7 +13,7 @@ DEBUG='false' # Very verbose
 
 declare -A UNAVAILABLE=(
   # ['Display Name']='URL to open for a human update check'
-  #['GraveStonesPlus']='https://www.spigotmc.org/resources/gravestonesplus.95132/updates'
+  ['GraveStonesPlus']='https://www.spigotmc.org/resources/gravestonesplus.95132/updates'
   ['mcxboxbroadcast']='https://github.com/MCXboxBroadcast/Broadcaster/releases'
   #['MyWorlds']='https://www.spigotmc.org/resources/myworlds.39594/updates'
   ['Vault']='https://dev.bukkit.org/projects/vault/files'
@@ -29,11 +29,13 @@ TARGET_DIR="${HOME}/Github/robojoe-smp-scripts/robojoe"
 
 GEYSER_DEFINITION=(
   '@API_URL'
+  '@DIR'
   'NAMES'
   'PROJECTS'
 )
 
 JENKINS_DEFINITION=(
+  '@DIR'
   'NAMES'
   'PATHS'
   'URLS'
@@ -42,6 +44,7 @@ JENKINS_DEFINITION=(
 MODRINTH_DEFINITION=(
   '@API_URL'
   'BACKUPS'
+  '@DIR'
   'NAMES'
   '@PAYLOAD'
   'WILDCARDS'
@@ -49,6 +52,7 @@ MODRINTH_DEFINITION=(
 
 PURPUR_DEFINITION=(
   '@API_URL'
+  '@DIR'
   'NAMES'
   'PROJECTS'
   'WILDCARDS'

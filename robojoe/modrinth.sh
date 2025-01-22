@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 #shellcheck enable=require-variable-braces
 #shellcheck disable=SC2034
-### Definition: variables PAYLOAD, NAMES, and BACKUPS
 ### IMPORTANT : Order of MODRINTH arrays must be parallel
 ### Alphabetical by MODRINTH_NAMES
 ### DO NOT EDIT ABOVE THIS LINE
@@ -9,14 +8,13 @@
 MODRINTH_API_URL='https://api.modrinth.com/v2'
 
 MODRINTH_BACKUPS=(
-  ### All as of 12/22/24
+  ### All as of 12/22/24 unless otherwise noted
+  '624f658421ec7eaf5f0dcc0fdd0ddc5cd2fc778c063c664f1140940ee25e69c5b5bcb721cdd70c7bb9f543346d70c2547e18181c651e451d67627f10f95670a5' # 1/13/2025
   '3e9d241adafe1d7979c83ab2796d37f6aee1bcc9373cdf1404d6107df5157a0a31dbea642ffb8aeab018e9ab48fe648d2161a069c346063ea840873300dbd573'
   '47997111bbf8454d26c7d03c9243e98b5f59bb020f89561202e742ff1af4f6ad96ae0a94e14fdda0711b54851c85fd5b5d754b1f0eb55236fa3f1df1c9622573'
   '0874f449965ec28a1ec1453a4aafc6da80e1647ec46b87559540d57047603f6b07f83d69b602f049475756e38f9148dbd964f668341cbb30b7ebd09345c97aad'
   'cd6dcfcb77ed8f88b60ca6e277bd12a13e4304c76f6ea7d497bf6e47ee2ceef2f831c24d4dc59a0b75e810fa62dbaa714efa91ad7c9b02fe7d627511533af217'
   '0f2936de12b9c8003ab95bad54c92af31ffb53588ca3619a0910991c566275422cdead4af6432a1a8fbb7645766065588cb4bc914b34473bd0e0c88205c54701'
-  #'6fbb159508961654baa1e3137df277e9aad26b509775c7432f1ef0c358b905927e93b9b357d89275c9c1e3c664f72635b2da4fb13473063c9d6271be3ae746d1'
-  #'566ee4a60c9d68f7c8650a1c96b8b9af295eb5fb9f66f0de01912185b23a721af706ca497d70a16a12374fde4594565d3c72c6b456985d10001b47d41e9ee9b1'
   '6dcd2036740f44cf7cfbe72d829601abccaa6e33c79804df183e516ee1e0fecd70c60a023b1ff7608e41de05b8af84707479dec7ae67af8aa9554f0413966459'
   'b098d0c5d8d1d9e1536bec641d9f9f57b6122870adae1ea4f795d44fcba4bd3e22b08a94dee37a659a66d494c87e414f42c8fe02ce8b96830025ec9cf06ceb0c'
   'a7d299dd35712ac4a2ec5d93e283917e7a95679a5977b16dbc701694d17b3371aabe07a6019424dd4a1810095695f54b829b773915fc3879b0cd21165d42c613'
@@ -29,14 +27,15 @@ MODRINTH_BACKUPS=(
   '91144ad45e73f1ae115aa6cfdd1844eefc06d2c7abf8f248ab8c33f4f3fd3cecc468d4ad7209842641ec092a31c90d14ea42893e2da00f1cae297fc109a458ce'
 )
 
+MODRINTH_DIR="${TARGET_DIR}/plugins"
+
 MODRINTH_NAMES=(
-  'Chunky' # 0
-  'Chunky Border' # 1
-  'CoreProtect' # 2
-  'Craftbook' # 3
-  'DiscordSRV' # 4
-  #'DriveBackupV2' # 5
-  #'Geyser' # 6
+  'Bentobox' # 0
+  'Chunky' # 1
+  'Chunky Border' # 2
+  'CoreProtect' # 3
+  'Craftbook' # 4
+  'DiscordSRV' # 5
   'GriefPrevention' # 6
   'Grim Anticheat' # 7
   'Maintenance' # 8
@@ -71,13 +70,12 @@ MODRINTH_PAYLOAD='{
 # Paper for Chunky, Chunky Border, Geyser, GriefPrevention (maybe? inconsistent), Maintenance, ViaBackwards, ViaVersion, Worldedit
 
 MODRINTH_WILDCARDS=(
+  'BentoBox-*.jar'
   'Chunky-Bukkit-1.*.*.jar'
   'ChunkyBorder-Bukkit-1.*.*.jar'
   'CoreProtect-*.*.jar'
   'craftbook-bukkit-*.*.*.jar'
   'DiscordSRV-Build-1.*.jar'
-  #'DriveBackupV2.jar'
-  #'Geyser-Spigot.jar'
   'GriefPrevention-*.*.*.jar'
   'grimac-2.*.*.jar'
   'Maintenance-*.*.jar'

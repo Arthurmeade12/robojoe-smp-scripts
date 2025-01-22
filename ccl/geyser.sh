@@ -4,10 +4,9 @@
 ### IMPORTANT : Order of GEYSER arrays must be parallel
 ### Alphabetical by GEYSER_NAMES
 ### DO NOT EDIT ABOVE THIS LINE
+GEYSER_DIR='plugins'
 
 GEYSER_API_URL='https://download.geysermc.org/v2'
-
-GEYSER_DIR="${TARGET_DIR}/plugins"
 
 GEYSER_NAMES=(
   'Floodgate'

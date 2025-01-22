@@ -4,7 +4,7 @@
 
 bad_source(){
   error "${1} does not follow its definition (does not include the necessary variables). Skipping ..."
-  continue
+  return 1
 }
 
 corrupt(){
