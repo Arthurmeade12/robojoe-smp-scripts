@@ -1,3 +1,6 @@
 - Add remote hash checking to all loops
 - Upload to sftp
 - Add Fabric server
+- Allow project selection (ccl, robojoe)
+- Add arguments to download.sh (ex. download.sh robojoe ...)
+  - Add help()
