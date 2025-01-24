@@ -18,10 +18,10 @@ UNAVAILABLE_DIR='.'
 
 # The pretty name to display
 UNAVAILABLE_NAMES=(
-  'McXboxBroadcast'
+  #'McXboxBroadcast'
 )
 
 # The URL to open in the user's web browser for manual download
 UNAVAILABLE_URLS=(
-  'https://github.com/MCXboxBroadcast/Broadcaster/releases'
+  #'https://github.com/MCXboxBroadcast/Broadcaster/releases'
 )
