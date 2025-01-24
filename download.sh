@@ -41,7 +41,7 @@ done
 
 ### Remaining pre-init
 
-TIMESTAMP="${TARGET_DIR}/${TIMESTAMP_FILE}"
+TIMESTAMP="${TARGET_DIR}/.timestamp"
 timestamp_check # .timestamp
 LAST_RUN="$(date '+%s' -d "$(cat "${TIMESTAMP}" 2>/dev/null)")"
 export LAST_RUN REQUIRED_SOURCES TIMESTAMP
