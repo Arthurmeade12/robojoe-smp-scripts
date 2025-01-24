@@ -5,6 +5,7 @@
 ### DO NOT EDIT ABOVE THIS LINE
 
 # Used for downloading the file only, not interacting with the online APIs
+# Not respected by Modrinth
 # Consult `man curl` for list of options
 CURL_ARGS='-JlOf# --clobber'
 
@@ -59,6 +60,19 @@ ZOO_PATH="${HOME}/Minecraft/zoo"
 
 # Used internally for dynamic file-grepping and for interacting with some APIs
 ZOO_VERSION='1.21.4'
+
+###
+
+# List of optional sources used on this server
+MODDED=(
+  'modrinth.sh'
+)
+
+# Path to find optional sources and to download files
+MODDED_PATH="${HOME}/Github/robojoe-smp-scripts/modded"
+
+# Used internally for dynamic file-grepping and for interacting with some APIs
+MODDED_VERSION='1.20.1'
 
 ### OPTIONAL SOURCE DEFINITIONS
 ### All vars are expected to be prefixed with the basename of the script they are in, minus the '.sh' part.

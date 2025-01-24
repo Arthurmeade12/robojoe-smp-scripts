@@ -91,6 +91,7 @@ do
   _pushd "${TARGET_DIR}"
   TIMESTAMP="${TARGET_DIR}/.timestamp"
   MINECRAFT_MINOR="$(eval echo "\${${SERVER}_VERSION}")"
+  #shellcheck disable=SC2034
   MINECRAFT_MAJOR="$(head -c '-3' <<< "${MINECRAFT_MINOR}")"
   LAST_RUN="$(date '+%s' -d "$(cat "${TIMESTAMP}" 2>/dev/null)")"
   export LAST_RUN MINECRAFT_{MINOR,MAJOR} TIMESTAMP

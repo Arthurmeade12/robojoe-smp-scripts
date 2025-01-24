@@ -48,8 +48,13 @@ jenkins_exec(){
 }
 
 modrinth_download(){
+  #local REMOTE_FILE
+  #for REMOTE_FILE in $(jq -r '.files[]' <<< "${RECEIPT}")
+  #do
+    #[[ "$(jq -r '.primary' <<< "${REMOTE_FILE}")" != 'true' ]] && continue
   updating "${MODRINTH_NAMES["${i}"]}" "$(jq -r '.date_published' <<< "${RECEIPT}")"
-  curl ${CURL_ARGS} "$(jq -r '.files[].url' <<< "${RECEIPT}")"
+  curl -L# "$(jq -r '.files[].url' <<< "${RECEIPT}")" -o "$(jq -r '.files[].filename' <<< "${RECEIPT}")"
+  #done
 }
 
 modrinth_exec(){

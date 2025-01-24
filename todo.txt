@@ -1,6 +1,5 @@
 - Add remote hash checking to Jenkins
 - Upload to sftp
-- Add Fabric server, Zoo
 - Add hangar
 - Add curseforge
 - Add gradle
@@ -8,3 +7,4 @@
 - Add changelogs to Modrinth and etc.
 - Add -c flag for creating a server; pull scripts from stock/
 - Make '%' preliminary character recognized by source_check() for not prefixing vars when we check them so that we can do source_check() config.sh
+- Add option to download non-primary file from Modrinth, similar to JENKINS_PATHS
