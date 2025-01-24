@@ -2,7 +2,7 @@
 #shellcheck enable=require-variable-braces
 #shellcheck disable=SC2034
 
-### Definition: variables API_URL, BACKUP, DIR, NAMES, PAYLOAD, and WILDCARDS
+### Definition: variables API_URL, BACKUPS, DIR, NAMES, PAYLOAD, and WILDCARDS
 ### IMPORTANT : Order of MODRINTH arrays must be parallel
 ### Alphabetical by MODRINTH_NAMES
 ### DO NOT EDIT ABOVE THIS LINE
