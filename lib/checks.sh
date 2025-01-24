@@ -46,26 +46,22 @@ bash_check(){
     error_out '5' 'Please install a newer version of bash to run this script (minimum 4.0.0).'
 }
 
-optional_source_check(){
-  local OPTIONAL_SOURCE="${1}"
-  #shellcheck disable=SC2153
-  CUSTOM_SOURCE="${TARGET_DIR}/${OPTIONAL_SOURCE}"
-  if [[ -f "${CUSTOM_SOURCE}" ]] && [[ -r "${CUSTOM_SOURCE}" ]] # Custom script in target dir
+rw_check(){
+  local OPTIONAL_SOURCE
+  OPTIONAL_SOURCE="${TARGET_DIR}/sources/${1}"
+  if [[ -f "${OPTIONAL_SOURCE}" ]] && [[ -r "${OPTIONAL_SOURCE}" ]] # Custom script in target dir
   then
-    source "${CUSTOM_SOURCE}"
-  elif [[ -f "${DIRNAME}/${OPTIONAL_SOURCE}" ]] && [[ -r "${DIRNAME}/${OPTIONAL_SOURCE}" ]] # Our stock script
-  then
-    source "${DIRNAME}/${OPTIONAL_SOURCE}"
+    source "${OPTIONAL_SOURCE}"
   else
-    error "The optional  ${OPTIONAL_SOURCE} is either absent or unable to be read. Skipping ..."
+    error "The source ${OPTIONAL_SOURCE} is either absent or unable to be read. Skipping ..."
+    return 1
   fi
 }
 
-source_check(){
+optional_source_check(){
   set +u # We're dealing with that here
   local ARRAY_LENGTH BASE FULL_VAR NUM VARIABLE
   BASE="$(hash_fix <<< "${1}")" # `hash_fix` cuts of last 3 chars, which is a coincidence but is useful here.
-  NUM='' # Needs to be reset for every source
   for VARIABLE in $(eval echo "\${${BASE^^}_DEFINITION[@]}") # `printf` only prints first arg, whereas `echo` prints them all
   do
     FULL_VAR="${BASE^^}_${VARIABLE#@}"
@@ -73,7 +69,7 @@ source_check(){
     then
       if [[ -z "${!FULL_VAR}" ]]
       then
-        bad_source "${1}"
+        bad_source "${1}" "${FULL_VAR}"
         return 1
       fi
     else
@@ -81,7 +77,7 @@ source_check(){
       if [[ "${NUM}" ]] && [[ "${ARRAY_LENGTH}" != "${NUM}" ]]
       then
         bad_source "${1}"
-	return 1
+        return 1
       else
         NUM="${ARRAY_LENGTH}"
       fi

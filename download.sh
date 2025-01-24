@@ -10,7 +10,6 @@
 #shellcheck source=stock/purpur.sh
 #shellcheck disable=SC1091
 #shellcheck disable=SC2162
-#shellcheck disable=SC2164
 
 set -u
 
@@ -39,6 +38,7 @@ do
     error_out 4 "The command \`${REQUIRED_COMMAND}\` is not installed on your system. Please install it to run this script. Exiting ..."
 done
 
+handle_print_path
 trap 'handle_ctrl_c' SIGINT # helpers.sh
 
 ### Handle cli options
@@ -88,7 +88,7 @@ do
   set -u
   TARGET_DIR="$(eval echo "\${${SERVER}_PATH}")"
   target_dir_check "${TARGET_DIR}"
-  pushd "${TARGET_DIR}"
+  _pushd "${TARGET_DIR}"
   TIMESTAMP="${TARGET_DIR}/.timestamp"
   MINECRAFT_MINOR="$(eval echo "\${${SERVER}_VERSION}")"
   MINECRAFT_MAJOR="$(head -c '-3' <<< "${MINECRAFT_MINOR}")"
@@ -101,20 +101,21 @@ do
   for SOURCE in $(eval echo "\${${SERVER}[@]}")
   do
     SOURCE_NAME="${SOURCE/%'.sh'}"
+    rw_check "${SOURCE}" || continue
+    . "${TARGET_DIR}/sources/${SOURCE}"
     optional_source_check "${SOURCE}" || continue
-    . "${SOURCE}"
-    source_check "${SOURCE}" || continue
     SOURCE_DIR="$(eval echo "\${${SOURCE_NAME^^}_DIR}")"
     [[ ! -d "${SOURCE_DIR}" ]] && \
-      mkdir -p "${SOURCE_DIR}" 2>/dev/null # It may already exist
-    pushd "${SOURCE_DIR}"
+      mkdir -p "${SOURCE_DIR}"
+    _pushd "${SOURCE_DIR}"
     "${SOURCE_NAME}_exec"
-    popd
+    _popd
   done
 
   ### Cleanup
 
   update_timestamp
-  popd
+  _popd
+  printf '\n'
 
 done

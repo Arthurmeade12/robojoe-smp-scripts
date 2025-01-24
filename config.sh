@@ -5,7 +5,12 @@
 ### DO NOT EDIT ABOVE THIS LINE
 
 # Used for downloading the file only, not interacting with the online APIs
+# Consult `man curl` for list of options
 CURL_ARGS='-JlOf# --clobber'
+
+# If true, prints the directory stack and shows you the cwd of the script every time it moves in the filesystem.
+# If false, no messages are sent.
+PRINT_PATH='false'
 
 # If true, only downloads projects if they have been updated.
 # If false, downloads every project regardless of how recently it has been updated.
@@ -37,6 +42,23 @@ ROBOJOE_PATH="${HOME}/Github/robojoe-smp-scripts/robojoe"
 
 # Used internally for dynamic file-grepping and for interacting with some APIs
 ROBOJOE_VERSION='1.21.4'
+
+###
+
+# List of optional sources used on this server
+ZOO=(
+  'geyser.sh'
+  'jenkins.sh'
+  'modrinth.sh'
+  'purpur.sh'
+  'unavailable.sh'
+)
+
+# Path to find optional sources and to download files
+ZOO_PATH="${HOME}/Minecraft/zoo"
+
+# Used internally for dynamic file-grepping and for interacting with some APIs
+ZOO_VERSION='1.21.4'
 
 ### OPTIONAL SOURCE DEFINITIONS
 ### All vars are expected to be prefixed with the basename of the script they are in, minus the '.sh' part.
