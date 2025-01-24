@@ -15,7 +15,7 @@ geyser_exec(){
   do
     RECEIPT="$(curl -sL "${GEYSER_API_URL}/projects/${GEYSER_PROJECTS["${i}"]}/versions/latest/builds/latest")"
     OUTPUT="$(jq -r '.downloads.spigot.name' <<< "${RECEIPT}")"
-    if geyser_hash_check
+    if geyser_hash_check && [[ "${UPDATE_MODE}" == 'true' ]]
     then
       uptodate "${GEYSER_NAMES["${i}"]}" "$(jq -r '.time' <<< "${RECEIPT}")"
       continue
@@ -97,4 +97,20 @@ purpur_exec(){
       corrupt "${PURPUR_NAMES["${i}"]}"
       # Don't use FILE because we need `find` to locate the new file
   done
+}
+
+unavailable_exec(){
+  # let UNAVAILABLE_DIR go unread
+  local ANSWER
+  msg "Project(s) to update manually: ${UNAVAILABLE_NAMES[*]}"
+  qq 'Automatically open their URLs ?'
+  read -n 1 -t "${WAIT}" ANSWER
+  printf '\n'
+  if [[ "${ANSWER,,}" = 'y' ]] || [[ -z "${ANSWER}" ]] # Accounts for people hitting enter and 10 seconds timing out
+  then
+    for LINK in "${UNAVAILABLE_URLS[@]}"
+    do
+      "${UNAVAILABLE_COMMAND}" "${UNAVAILABLE["${LINK}"]}"
+    done
+  fi
 }

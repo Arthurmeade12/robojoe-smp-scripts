@@ -17,16 +17,16 @@ PURPUR_DIR='.'
 
 # The pretty name to display
 PURPUR_NAMES=(
-  'Purpur'
+  #'Purpur'
 )
 
 # The technical name to send to the Purpur Download API
 PURPUR_PROJECTS=(
-  'purpur'
+  #'purpur'
 )
 
 # The filename whose md5 hash is compared to purpurmc.org's
 # BUG: `find` does not like ${MINECRAFT_MINOR} or ${MINECRAFT_MAJOR} in this array
 PURPUR_WILDCARDS=(
-  'purpur-1.*.*.jar' #"purpur-${MINECRAFT_MINOR}-*.jar"
+  #'purpur-1.*.*.jar' #"purpur-${MINECRAFT_MINOR}-*.jar"
 )

@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 #shellcheck enable=require-variable-braces
-#shellcheck source=checks.sh
+#shellcheck source=lib/checks.sh
 #shellcheck source=config.sh
-#shellcheck source=exec.sh
-#shellcheck source=helpers.sh
-#shellcheck source=geyser.sh
-#shellcheck source=jenkins.sh
-#shellcheck source=modrinth.sh
-#shellcheck source=purpur.sh
-#shellcheck disable=SC2164
+#shellcheck source=lib/exec.sh
+#shellcheck source=lib/helpers.sh
+#shellcheck source=stock/geyser.sh
+#shellcheck source=stock/jenkins.sh
+#shellcheck source=stock/modrinth.sh
+#shellcheck source=stock/purpur.sh
+#shellcheck disable=SC1091
 #shellcheck disable=SC2162
+#shellcheck disable=SC2164
 
 set -u
 
@@ -18,17 +19,16 @@ set -u
 ### Required Sources (cannot be outsourced because we are checking if those sources are OK)
 
 DIRNAME="$(dirname "${0}")"
-REQUIRED_SOURCES=('checks.sh' 'config.sh' 'exec.sh' 'helpers.sh')
+REQUIRED_SOURCES=('lib/checks.sh' 'config.sh' 'lib/exec.sh' 'lib/helpers.sh')
 REQUIRED_COMMANDS=('curl' 'find' 'jq' 'md5sum' 'sha256sum' 'sha512sum')
 
 for REQUIRED_SOURCE in "${REQUIRED_SOURCES[@]}"
 do
   if [[ -f "${DIRNAME}/${REQUIRED_SOURCE}" ]] && [[ -r "${DIRNAME}/${REQUIRED_SOURCE}" ]]
   then
-    #shellcheck disable=SC1090 # Shellcheck directives for sources given on first few lines
     source "${DIRNAME}/${REQUIRED_SOURCE}"
   else
-    printf '%s\n' "The required ${REQUIRED_SOURCE} is either absent from the same directory as ${0} or unable to be read. Aborting ..."
+    printf '%s\n' "The required ${REQUIRED_SOURCE} is either absent from ${DIRNAME} or unable to be read. Aborting ..."
     exit 3
   fi
 done
@@ -36,60 +36,85 @@ done
 for REQUIRED_COMMAND in "${REQUIRED_COMMANDS[@]}"
 do
   which "${REQUIRED_COMMAND}" &>/dev/null || \
-    error_out 3 "The command \`${REQUIRED_COMMAND}\` is not installed on your system. Please install it to run this script. Exiting ..."
+    error_out 4 "The command \`${REQUIRED_COMMAND}\` is not installed on your system. Please install it to run this script. Exiting ..."
 done
 
-### Remaining pre-init
-
-TIMESTAMP="${TARGET_DIR}/.timestamp"
-timestamp_check # .timestamp
-LAST_RUN="$(date '+%s' -d "$(cat "${TIMESTAMP}" 2>/dev/null)")"
-export LAST_RUN REQUIRED_SOURCES TIMESTAMP
-[[ "${DEBUG}" == 'true' ]] && set -xa
-target_dir_check
 trap 'handle_ctrl_c' SIGINT # helpers.sh
+
+### Handle cli options
+
+if [[ "${#}" == '0' ]]
+then
+  help_options
+  error_out '2' 'Please specify a server, as defined in config.sh.'
+fi
+while getopts ':hv' 'OPT'
+do
+  case "${OPT}" in
+    'h')
+      help_options
+      exit
+      ;;
+    'v')
+      export VERBOSE='true' # Dealt with a few lines down
+      ;;
+    *)
+      help_options
+      error_out '2' "Unrecognized option ..."
+      ;;
+  esac
+  shift
+done
 
 ### Exec
 
-pushd "${TARGET_DIR}"
-#shellcheck disable=SC2153
-for SOURCE in "${OPTIONAL_SOURCES[@]}"
+for ARG in "${@}"
 do
-  SOURCE_NAME="${SOURCE/%'.sh'}"
-  optional_source_check "${SOURCE}" || continue
-  . "${SOURCE}"
-  source_check "${SOURCE}" || continue
-  SOURCE_DIR="$(eval echo "\${${SOURCE_NAME^^}_DIR}")"
-  [[ ! -d "${SOURCE_DIR}" ]] && \
-    mkdir -p "${SOURCE_DIR}" 2>/dev/null # It may already exist
-  pushd "${SOURCE_DIR}"
-  "${SOURCE_NAME}_exec"
-  popd
-done
-popd
 
-### Open UNAVAILABLE links
+  ### Remaining pre-init (per server)
 
-msg "Plugins to update manually: ${!UNAVAILABLE[*]}"
-qq 'Automatically open their URLs ?'
-read -n 1 ANSWER
-printf '\n'
-if [[ "${ANSWER}" = 'y' ]] || [[ "${ANSWER}" = 'Y' ]]
-then
-  case "$(uname)" in
-    'Darwin')
-      OPEN='open'
-      ;;
-    *)
-      OPEN='xdg-open'
-      ;;
-  esac
-  for LINK in "${!UNAVAILABLE[@]}"
+  [[ "${VERBOSE}" == 'true' ]] && set -xa
+  SERVER="${ARG^^}" # Makes it case-insensitive
+  printf '\033[;34;1m ==>\033[;0m \033[;1m%s\033[;0m\n' "${SERVER} : "
+  set +u # Temporary to test if these vars are present or not
+  if [[ ! -v "${SERVER}_PATH" ]] || \
+    [[ ! -v "${SERVER}_VERSION" ]] || \
+    [[ ! -v "${SERVER}" ]]
+  then
+    error "\"${SERVER}\" was not found as a defined server in config.sh."
+    error "Make sure that ${SERVER}_PATH and ${SERVER}_VERSION are defined in config.sh, along with the array itself, ${SERVER}."
+    continue
+  fi
+  set -u
+  TARGET_DIR="$(eval echo "\${${SERVER}_PATH}")"
+  target_dir_check "${TARGET_DIR}"
+  pushd "${TARGET_DIR}"
+  TIMESTAMP="${TARGET_DIR}/.timestamp"
+  MINECRAFT_MINOR="$(eval echo "\${${SERVER}_VERSION}")"
+  MINECRAFT_MAJOR="$(head -c '-3' <<< "${MINECRAFT_MINOR}")"
+  LAST_RUN="$(date '+%s' -d "$(cat "${TIMESTAMP}" 2>/dev/null)")"
+  export LAST_RUN MINECRAFT_{MINOR,MAJOR} TIMESTAMP
+  timestamp_check # .timestamp
+
+  ### Main
+
+  for SOURCE in $(eval echo "\${${SERVER}[@]}")
   do
-    "${OPEN}" "${UNAVAILABLE["${LINK}"]}"
+    SOURCE_NAME="${SOURCE/%'.sh'}"
+    optional_source_check "${SOURCE}" || continue
+    . "${SOURCE}"
+    source_check "${SOURCE}" || continue
+    SOURCE_DIR="$(eval echo "\${${SOURCE_NAME^^}_DIR}")"
+    [[ ! -d "${SOURCE_DIR}" ]] && \
+      mkdir -p "${SOURCE_DIR}" 2>/dev/null # It may already exist
+    pushd "${SOURCE_DIR}"
+    "${SOURCE_NAME}_exec"
+    popd
   done
-fi
 
-### Update Timestamp
+  ### Cleanup
 
-update_timestamp
+  update_timestamp
+  popd
+
+done

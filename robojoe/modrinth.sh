@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
 #shellcheck enable=require-variable-braces
 #shellcheck disable=SC2034
+
+### Definition: variables API_URL, BACKUP, DIR, NAMES, PAYLOAD, and WILDCARDS
 ### IMPORTANT : Order of MODRINTH arrays must be parallel
 ### Alphabetical by MODRINTH_NAMES
 ### DO NOT EDIT ABOVE THIS LINE
 
+# ADVANCED:
+# The API URL, which must understand Modrinth API, to which all requests will be sent
+# Note: https://curserinth-api.kuylar.dev/ may work for accessing Curseforge through the Modrinth API, but this is untested and unsupported by download.sh and the developer of Curserinth, who has archived their project.
+# Don't change if you don't know what you're doing
 MODRINTH_API_URL='https://api.modrinth.com/v2'
 
+# The sha512 hash of any jar from the Modrinth project you want. This is only used when downloading a Modrinth project for the first time, or if the download was deleted.
 MODRINTH_BACKUPS=(
   ### All as of 12/22/24 unless otherwise noted
   '624f658421ec7eaf5f0dcc0fdd0ddc5cd2fc778c063c664f1140940ee25e69c5b5bcb721cdd70c7bb9f543346d70c2547e18181c651e451d67627f10f95670a5' # 1/13/2025
@@ -25,10 +32,13 @@ MODRINTH_BACKUPS=(
   '85d5ec6001d73be013a77adf16b54f367a47314e6b849ca78cc575c9751637fec9e7215a12bbaa4d430d40c40eb6b8c877f87f81f28ce2507c75918f82bb883f'
   '5ab0d74e7a60654567b19a9fbfb7c2d680a5bc7ffd53879006cfd38604a5576d103470e7278a37480f0593933de129d849539145a5f182ff39d547d402b097fe'
   '91144ad45e73f1ae115aa6cfdd1844eefc06d2c7abf8f248ab8c33f4f3fd3cecc468d4ad7209842641ec092a31c90d14ea42893e2da00f1cae297fc109a458ce'
+
 )
 
-MODRINTH_DIR="${TARGET_DIR}/plugins"
+# The folder into which all project(s) in this file should be downloaded
+MODRINTH_DIR='plugins'
 
+# The pretty name to display
 MODRINTH_NAMES=(
   'Bentobox' # 0
   'Chunky' # 1
@@ -48,6 +58,10 @@ MODRINTH_NAMES=(
   'Worldedit' # 15
 )
 
+# A tricky variable. This is the payload sent to Modrinth for the projects and versions you want.
+# MUST be a valid JSON
+# Whitespace here is strict; do not add or remove spaces or newlines
+# The projects you want must have versions in this array for them to be downloaded
 MODRINTH_PAYLOAD='{
   "loaders": [
     "paper",
@@ -69,6 +83,8 @@ MODRINTH_PAYLOAD='{
 # 1.21.3 for Simple Voice Chat Discord Bridge, WorldEdit
 # Paper for Chunky, Chunky Border, Geyser, GriefPrevention (maybe? inconsistent), Maintenance, ViaBackwards, ViaVersion, Worldedit
 
+# The filename whose sha512 hash download.sh compares to Modrinth's
+# BUG: `find` does not like ${MINECRAFT_MINOR} or ${MINECRAFT_MAJOR} in this array
 MODRINTH_WILDCARDS=(
   'BentoBox-*.jar'
   'Chunky-Bukkit-1.*.*.jar'
@@ -87,3 +103,4 @@ MODRINTH_WILDCARDS=(
   'ViaVersion-*.*.*.jar'
   'worldedit-bukkit-*.*.*.jar'
 )
+

@@ -26,7 +26,7 @@ handle_ctrl_c(){
   local ANSWER
   qq 'Update Timestamp ?'
   #shellcheck disable=SC2162
-  read -n 1 -t 10 ANSWER
+  read -n 1 -t "${WAIT}" ANSWER
   if [[ "${ANSWER}" == 'y' ]] || [[ "${ANSWER}" == 'Y' ]]
   then
     update_timestamp
@@ -36,6 +36,26 @@ handle_ctrl_c(){
 
 hash_fix(){
   head -c '-4' -
+}
+
+help_options(){
+  printf '%s\n' '
+Usage: download.sh [options] <server(s)>
+The server(s) must be defined in config.sh.
+
+Options:
+  -h : Display this help message
+  -v : Be verbose (debug)
+
+Error Codes:
+  0 : Success
+  1 : General Failure
+  2 : Unrecognized command line option
+  3 : A required source is missing from lib/ (reclone from Github to fix)
+  4 : A command this script utilized is not installed on your system
+  5 : Incompatible shell (must be Bash > 3)
+  6 : The target directory cannot be created or written to (fix permissions)
+'
 }
 
 msg(){

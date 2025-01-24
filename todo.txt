@@ -1,6 +1,9 @@
-- Add remote hash checking to all loops
+- Add remote hash checking to Jenkins
 - Upload to sftp
-- Add Fabric server
-- Allow project selection (ccl, robojoe)
-- Add arguments to download.sh (ex. download.sh robojoe ...)
-  - Add help()
+- Add Fabric server, Zoo
+- Add hangar
+- Add curseforge
+- Add gradle
+- Add maven
+- Add changelogs to Modrinth and etc.
+- Add -c flag for creating a server; pull scripts from stock/

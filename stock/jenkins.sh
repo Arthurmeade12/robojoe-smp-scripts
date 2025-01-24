@@ -2,7 +2,6 @@
 #shellcheck enable=require-variable-braces
 #shellcheck disable=SC2034
 
-### Definition: DIR, NAMES, PATHS, URLS
 ### IMPORTANT : Order of JENKINS arrays must be parallel
 ### Alphabetical by JENKINS_NAMES
 ### DO NOT EDIT ABOVE THIS LINE
@@ -12,11 +11,8 @@ JENKINS_DIR='plugins'
 
 # The pretty name to display
 JENKINS_NAMES=(
-  'BKCommonLib Dev'
-  'EssentialsX Dev'
-  'GravestonesPlus Dev'
-  'Luckperms'
-  'MyWorlds Dev'
+  #'EssentialsX Dev'
+  #'Luckperms'
 )
 
 # ADVANCED:
@@ -25,18 +21,12 @@ JENKINS_NAMES=(
 # Finding this string takes some time debugging the Jenkins API output with `curl` `jq` and `grep`.
 # If you don't know what you're doing, leave this option blank
 JENKINS_PATHS=(
-   ''
-  'jars/EssentialsX-'
-  ''
-  'bukkit/'
-  ''
+  #'jars/EssentialsX-'
+  #'bukkit/'
 )
 
 # The URL of the Jenkins server, with the job you want on the end
 JENKINS_URLS=(
-  'ci.mg-dev.eu/job/BKCommonLib'
-  'ci.ender.zone/job/EssentialsX'
-  'bencodez.com/job/GraveStonesPlus'
-  'ci.lucko.me/job/LuckPerms'
-  'ci.mg-dev.eu/job/MyWorlds'
+  #'ci.ender.zone/job/EssentialsX'
+  #'ci.lucko.me/job/LuckPerms'
 )
