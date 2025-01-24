@@ -111,7 +111,7 @@ _popd(){
 _pushd(){
   if [[ "${PRINT_PATH}" == 'true' ]]
   then
-    pushd
+    pushd "${@}"
   else
     cd "${@}"
   fi
