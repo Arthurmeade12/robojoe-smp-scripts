@@ -8,3 +8,12 @@
 - Add -c flag for creating a server; pull scripts from stock/
 - Make '%' preliminary character recognized by source_check() for not prefixing vars when we check them so that we can do source_check() config.sh
 - Add option to download non-primary file from Modrinth, similar to JENKINS_PATHS
+- Make modrinth.sh less variable heavy - we can determine more things automatically
+- Make config.sh, optional sources JSON
+  - Would make porting to another language easier
+  - Removes bloat of source_check()
+  - Less chance of user error
+  - Parse with `jq`
+  - Allows dynamic updating of persistent (on-disk) values during runtime with `jq`
+  - Docs would be necessary because there are no comments in JSON
+- Automatically determine _NAMES arrays if they are empty, so that we can print names without "overriding" them
