@@ -61,7 +61,6 @@ rw_check(){
 optional_source_check(){
   set +u # We're dealing with that here
   local ARRAY_LENGTH BASE FULL_VAR NUM VARIABLE
-  trap 'bad_source && return 1' SIGHUP
   BASE="$(hash_fix <<< "${1}")" # `hash_fix` cuts of last 3 chars, which is a coincidence but is useful here.
   for VARIABLE in $(eval echo "\${${BASE^^}_DEFINITION[@]}") # `printf` only prints first arg, whereas `echo` prints them all
   do
