@@ -104,7 +104,12 @@ do
     SOURCE_NAME="${SOURCE/%'.sh'}"
     rw_check "${SOURCE}" || continue
     . "${TARGET_DIR}/sources/${SOURCE}"
-    optional_source_check "${SOURCE}" || continue
+    BAD_VAR="$(optional_source_check)"
+    if [[ "${BAD_VAR}" ]]
+    then
+      bad_source "${SOURCE}" "${BAD_VAR}"
+      continue
+    fi
     SOURCE_DIR="$(eval echo "\${${SOURCE_NAME^^}_DIR}")"
     [[ ! -d "${SOURCE_DIR}" ]] && \
       mkdir -p "${SOURCE_DIR}"

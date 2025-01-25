@@ -61,27 +61,29 @@ rw_check(){
 optional_source_check(){
   set +u # We're dealing with that here
   local ARRAY_LENGTH BASE FULL_VAR NUM VARIABLE
+  trap 'bad_source && return 1' SIGHUP
   BASE="$(hash_fix <<< "${1}")" # `hash_fix` cuts of last 3 chars, which is a coincidence but is useful here.
   for VARIABLE in $(eval echo "\${${BASE^^}_DEFINITION[@]}") # `printf` only prints first arg, whereas `echo` prints them all
   do
-    FULL_VAR="${BASE^^}_${VARIABLE#@}"
-    if [[ "${VARIABLE:0:1}" == '@' ]]
-    then
-      if [[ -z "${!FULL_VAR}" ]]
-      then
-        bad_source "${1}" "${FULL_VAR}"
-        return 1
-      fi
-    else
-      ARRAY_LENGTH="$(eval printf "\${#${FULL_VAR}[@]}")" 2>/dev/null
-      if [[ "${NUM}" ]] && [[ "${ARRAY_LENGTH}" != "${NUM}" ]]
-      then
-        bad_source "${1}"
-        return 1
-      else
-        NUM="${ARRAY_LENGTH}"
-      fi
-    fi
+    FULL_VAR="$(tr -d '@%' <<< "${BASE^^}_${VARIABLE}")"
+    case "${VARIABLE:0:1}" in
+      '@')
+        [[ -z "${!FULL_VAR}" ]] && \
+          printf '%s' "${FULL_VAR} "
+        ;;
+      '%')
+        [[ -z "${!VARIABLE}" ]] && \
+          printf '%s' "${VARIABLE}"
+        ;;
+      *)
+        ARRAY_LENGTH="$(eval printf "\${#${FULL_VAR}[@]}")" 2>/dev/null
+        if [[ "${NUM}" ]] && [[ "${ARRAY_LENGTH}" != "${NUM}" ]]
+        then
+          printf '%s' "${FULL_VAR}"
+        else
+          NUM="${ARRAY_LENGTH}"
+        fi
+    esac
   done
   set -u
 }
