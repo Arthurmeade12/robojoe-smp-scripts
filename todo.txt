@@ -1,4 +1,4 @@
-- Add remote hash checking to Jenkins
+- Add remote hash checking to Jenkins & Modrinth
 - Upload to sftp
 - Add hangar
 - Add curseforge
@@ -6,7 +6,6 @@
 - Add maven
 - Add changelogs to Modrinth and etc.
 - Add -c flag for creating a server; pull scripts from stock/
-- Make '%' preliminary character recognized by source_check() for not prefixing vars when we check them so that we can do source_check() config.sh
 - Add option to download non-primary file from Modrinth, similar to JENKINS_PATHS
 - Make modrinth.sh less variable heavy - we can determine more things automatically
 - Make config.sh, optional sources JSON
@@ -16,4 +15,17 @@
   - Parse with `jq`
   - Allows dynamic updating of persistent (on-disk) values during runtime with `jq`
   - Docs would be necessary because there are no comments in JSON
+    - Actually just put in dummy data values to stick with JSON!
+    - Alternative: Use `yq` to parse yaml like `jq`
+  - Would remove ugly parallel arrays
+  - Would allow per-project vars
+    - Custom names for certain projects but not others
+    - Custom MC versions for "
+    - Custom target dirs for "
 - Automatically determine _NAMES arrays if they are empty, so that we can print names without "overriding" them
+- Allow specifying version other than latest for CurseForge
+- Add internet checker
+- Add download verification with hashes
+- Fix ${POPD} when ${PRINT_PATH} == false
+- Decide to keep or remove ${CURL_ARGS}; don't half implement it
+- Fix $(sha1sum < "${FILE}") mysteriously giving 2 hashes in curseforge_exec()
