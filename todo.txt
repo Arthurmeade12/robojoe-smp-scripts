@@ -8,6 +8,7 @@
 - Add -c flag for creating a server; pull scripts from stock/
 - Add option to download non-primary file from Modrinth, similar to JENKINS_PATHS
 - Make modrinth.sh less variable heavy - we can determine more things automatically
+  - pluGET can determine everything with just the project id
 - Make config.sh, optional sources JSON
   - Would make porting to another language easier
   - Removes bloat of source_check()
@@ -28,4 +29,4 @@
 - Add download verification with hashes
 - Fix ${POPD} when ${PRINT_PATH} == false
 - Decide to keep or remove ${CURL_ARGS}; don't half implement it
-- Fix $(sha1sum < "${FILE}") mysteriously giving 2 hashes in curseforge_exec()
+- Add check where if there is no downloaded file for JENKINS download a new one, instead of checking the timestamp
