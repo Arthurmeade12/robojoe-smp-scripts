@@ -9,9 +9,18 @@
 # Consult `man curl` for list of options
 CURL_ARGS='-JlOf# --clobber'
 
+# API Key used for interacting with curseforge
+# Must be set for downloading from curseforge.com and bukkit.org
+# Unfortunately, to acquire a key, you must contact Overwolf (https://support.curseforge.com/en/support/solutions/articles/9000208346-about-the-curseforge-api-and-how-to-apply-for-a-key#key) and usually they take several months to reply.
+CURSEFORGE_API_KEY=''
+
 # If true, prints the directory stack and shows you the cwd of the script every time it moves in the filesystem.
 # If false, no messages are sent.
-PRINT_PATH='false'
+PRINT_PATH='true'
+
+# If true, prints a changelog (if available) when downloading an update.
+# If false, never prints any changelogs.
+SHOW_CHANGELOG='true'
 
 # If true, only downloads projects if they have been updated.
 # If false, downloads every project regardless of how recently it has been updated.
@@ -31,6 +40,7 @@ WAIT='10'
 
 # List of optional sources used on this server
 ROBOJOE=(
+  'curseforge.sh'
   'geyser.sh'
   'jenkins.sh'
   'modrinth.sh'
