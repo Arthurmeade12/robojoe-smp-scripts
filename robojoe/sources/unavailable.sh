@@ -11,12 +11,10 @@ UNAVAILABLE_DIR='.'
 
 UNAVAILABLE_NAMES=(
   'McXboxBroadcast'
-  'Vault'
   'VaultChatFormatter'
 )
 
 UNAVAILABLE_URLS=(
   'https://github.com/MCXboxBroadcast/Broadcaster/releases'
-  'https://dev.bukkit.org/projects/vault/files'
   'https://www.spigotmc.org/resources/vaultchatformatter.49016/'
 )
