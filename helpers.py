@@ -16,7 +16,7 @@ def out(msg):
   print(' \033[;1;32m==>\033[;0m %s\033[0m' % msg)
 
 def print_help():
-  print("""Usage: download.sh [options] <server(s)>
+  print('''Usage: download.sh [options] <server(s)>
 The server(s) must be defined in config.sh.
 
 Options:
@@ -31,4 +31,4 @@ Error Codes:
   4 : A command this script utilized is not installed on your system
   5 : Incompatible shell (must be Bash > 3)
   6 : The target directory cannot be created or written to (fix permissions)
-""")
+''')
