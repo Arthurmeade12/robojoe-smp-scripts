@@ -10,5 +10,6 @@ dirname = os.path.dirname(__file__)
 
 out('hello')
 
-modrinth_test = Modrinth('Chunky', 'Chunky-*.jar')
+modrinth_test = Modrinth('Chunky')
+modrinth_test.eval_glob('Chunky-*.jar')
 modrinth_test.download()
