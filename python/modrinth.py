@@ -1,33 +1,33 @@
 #!/usr/bin/env python
-import glob, json
-from helpers import out, error_exit
+import glob
+from helpers import out, error_exit, debug
+from jsonfile import jsonfile
+
 class Modrinth:
     api_url = 'https://api.modrinth.com/v2'
-    def __init__(self, name):
-        self.name = name
-
-    def populate(self, jsonconfig):
+    jsonconfig = jsonfile('modrinth.json')._dict
+    def __init__(self, index):
         try:
-            self.mrjson = json.load(jsonconfig)
-            self.wildcard = self.mrjson["projects"][self.name]["glob"]
-            self.backup_bash = self.mrjson["projects"][self.name]["glob"]
-            out("Wildcard : " + self.wildcard)
+            debug('Modrinth.json : ' + Modrinth.jsonconfig)
+            self.name = Modrinth.jsonconfig[int(index)]['name']
+            self.glob = Modrinth.jsonconfig[int(index)]['glob']
+            self.fallback_hash = Modrinth.jsonconfig[int(index)]['fallback_hash']
         except OSError:
             error_exit('The file could not be read or is an invalid json.', 1)
+        self.localfile = self.eval_glob()
 
-    def eval_glob(self,):
-        globs = glob.glob(self.wildcard)
+    def eval_glob(self):
+        globs = glob.glob(self.glob)
         match len(globs):
             case 0:
-                error_exit('The wildcard "' + self.wildcard + '" did not match any files. ', 1)
+                error_exit('The wildcard "' + self.glob + '" did not match any files. ', 1)
             case 1:
-                self.localfile = str(globs[0])
-                out(self.localfile)
+                self.localfile = globs[0]
             case _:
-                error_exit('The wildcard "' + self.wildcard + '" matches multiple files. Please     restrict it.', 1)
+                error_exit('The wildcard "' + self.glob + '" matches multiple files. Please     restrict it.', 1)
 
     def __str__(self):
         return self.name
 
-    def download(self,):
+    def download(self):
         out("Success")

@@ -4,6 +4,10 @@ import sys
 def corrupt(project):
   error('%s did not download properly. Please download manually.' % project)
 
+def debug(msg):
+  debug = False
+  if debug is True: print(' \033[;1;34m]==>\033[;0;31m DEBUG:\033[;0m %s\033[;0m' % msg)
+
 def error(errormsg):
   print(' \033[;1;31m==>\033[;0;31m ERROR:\033[;0m %s\033[;0m' % errormsg)
 
