@@ -30,3 +30,8 @@
 - Fix ${POPD} when ${PRINT_PATH} == false
 - Decide to keep or remove ${CURL_ARGS}; don't half implement it
 - Add check where if there is no downloaded file for JENKINS download a new one, instead of checking the timestamp
+
+### All on hiatus during Python port, which will make the above easier (JSON migration already underway)
+TODO: Config options:
+- configurable buffer size when reading files
+- configurable debug messages (with --verbose)
