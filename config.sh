@@ -12,11 +12,11 @@ CURL_ARGS='-JlOf# --clobber'
 # API Key used for interacting with curseforge
 # Must be set for downloading from curseforge.com and bukkit.org
 # Unfortunately, to acquire a key, you must contact Overwolf (https://support.curseforge.com/en/support/solutions/articles/9000208346-about-the-curseforge-api-and-how-to-apply-for-a-key#key) and usually they take several months to reply.
-CURSEFORGE_API_KEY=''
+CURSEFORGE_API_KEY='$2a$10$tPDlhGZIyk1w9xo7TEYP9uBLy083QUsL/7EwufoKHG/wZcvdfCn3e'
 
 # If true, prints the directory stack and shows you the cwd of the script every time it moves in the filesystem.
 # If false, no messages are sent.
-PRINT_PATH='true'
+PRINT_PATH='false'
 
 # If true, prints a changelog (if available) when downloading an update.
 # If false, never prints any changelogs.

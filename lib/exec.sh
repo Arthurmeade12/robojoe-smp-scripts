@@ -137,7 +137,7 @@ unavailable_exec(){
   then
     for LINK in "${UNAVAILABLE_URLS[@]}"
     do
-      "${UNAVAILABLE_COMMAND}" "${UNAVAILABLE["${LINK}"]}"
+      "${UNAVAILABLE_COMMAND}" "${LINK}"
     done
   fi
 }

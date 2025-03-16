@@ -1,0 +1,10 @@
+{
+  "modrinth_api_url": "api.modrinth.com/v2",
+  "projects": [
+    {
+      "ytBhnGfO": {
+        "name": "Chunky"
+      }
+    }
+  ]
+}

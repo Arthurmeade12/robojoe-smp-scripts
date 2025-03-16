@@ -89,7 +89,7 @@ do
   set -u
   TARGET_DIR="$(eval echo "\${${SERVER}_PATH}")"
   target_dir_check "${TARGET_DIR}"
-  "${PUSHD}" "${TARGET_DIR}"
+  _pushd "${TARGET_DIR}"
   TIMESTAMP="${TARGET_DIR}/.timestamp"
   MINECRAFT_MINOR="$(eval echo "\${${SERVER}_VERSION}")"
   #shellcheck disable=SC2034
@@ -114,15 +114,15 @@ do
     SOURCE_DIR="$(eval echo "\${${SOURCE_NAME^^}_DIR}")"
     [[ ! -d "${SOURCE_DIR}" ]] && \
       mkdir -p "${SOURCE_DIR}"
-    "${PUSHD}" "${SOURCE_DIR}"
+    _pushd "${SOURCE_DIR}"
     "${SOURCE_NAME}_exec"
-    ${POPD}
+    _popd
   done
 
   ### Cleanup
 
   update_timestamp
-  ${POPD}
+  _popd
   printf '\n'
 
 done
